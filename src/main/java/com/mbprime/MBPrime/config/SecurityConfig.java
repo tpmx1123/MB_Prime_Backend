@@ -33,6 +33,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/submissions").permitAll()
                 .requestMatchers("/api/admin/login").permitAll()
+                .requestMatchers("/api/admin/forgot-password").permitAll()
+                .requestMatchers("/api/admin/reset-password").permitAll()
                 .requestMatchers("/api/admin/**").authenticated()
                 .anyRequest().permitAll()
             )

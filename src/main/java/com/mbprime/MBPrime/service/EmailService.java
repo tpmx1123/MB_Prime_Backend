@@ -90,4 +90,27 @@ public class EmailService implements FormSubmissionEmailSender {
     private static String nullToEmpty(String s) {
         return s == null ? "" : s.trim();
     }
+
+    /**
+     * Sends password reset link to admin email. Does not throw; logs on failure.
+     */
+    public void sendPasswordResetEmail(String toEmail, String resetLink) {
+        if (fromEmail.isEmpty() || toEmail == null || toEmail.isBlank()) return;
+        try {
+            SimpleMailMessage msg = new SimpleMailMessage();
+            msg.setFrom(fromEmail);
+            msg.setTo(toEmail.trim());
+            msg.setSubject("MB Prime Admin – Reset your password");
+            msg.setText(
+                "You requested a password reset for the MB Prime admin account.\n\n" +
+                "Click the link below to set a new password (valid for 1 hour):\n\n" +
+                resetLink + "\n\n" +
+                "If you did not request this, please ignore this email.\n\n" +
+                "Best regards,\nMB Prime"
+            );
+            mailSender.send(msg);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

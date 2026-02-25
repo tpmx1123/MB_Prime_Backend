@@ -20,6 +20,12 @@ public class Admin {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(name = "password_reset_token", length = 255)
+    private String passwordResetToken;
+
+    @Column(name = "password_reset_token_expiry")
+    private LocalDateTime passwordResetTokenExpiry;
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
@@ -33,4 +39,8 @@ public class Admin {
     public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public String getPasswordResetToken() { return passwordResetToken; }
+    public void setPasswordResetToken(String passwordResetToken) { this.passwordResetToken = passwordResetToken; }
+    public LocalDateTime getPasswordResetTokenExpiry() { return passwordResetTokenExpiry; }
+    public void setPasswordResetTokenExpiry(LocalDateTime passwordResetTokenExpiry) { this.passwordResetTokenExpiry = passwordResetTokenExpiry; }
 }
