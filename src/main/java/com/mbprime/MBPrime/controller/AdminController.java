@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/admin")
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5173"}, allowCredentials = "true")
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5173", "https://mbprimeprojects.com", "https://www.mbprimeprojects.com"}, allowCredentials = "true")
 public class AdminController {
 
     private final AdminRepository adminRepository;
@@ -35,7 +35,7 @@ public class AdminController {
     @Value("${mbprime.admin.email:}")
     private String adminEmail;
 
-    @Value("${mbprime.frontend.url:http://localhost:5173}")
+    @Value("${mbprime.frontend.url:http://localhost:5173, https://mbprimeprojects.com, https://www.mbprimeprojects.com}")
     private String frontendUrl;
 
     @Autowired(required = false)
