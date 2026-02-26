@@ -29,14 +29,19 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
-            .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .cors(cors -> {})
+            .sessionManagement(session -> session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            )
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/submissions").permitAll()
-                .requestMatchers("/api/admin/login").permitAll()
-                .requestMatchers("/api/admin/forgot-password").permitAll()
-                .requestMatchers("/api/admin/reset-password").permitAll()
-                .requestMatchers("/api/admin/**").authenticated()
-                .anyRequest().permitAll()
+                .requestMatchers(
+                    "/api/admin/login",
+                    "/api/admin/forgot-password",
+                    "/api/admin/reset-password",
+                    "/api/submissions",
+                    "/api/blogs/**"
+                ).permitAll()
+                .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
